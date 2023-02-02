@@ -4,26 +4,21 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="description" content="View your Writing NFT collection in AR">
+  <meta property="og:title" content="Writing NFT AR Viewer">
+  <meta property="og:description" content="View your Writing NFT collection in AR">
+  <meta property="og:image" content="https://liker.land/images/og/writing-nft.jpg">
+  <meta name="theme-color" content="#28646e">
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-  <title>Writing NFT 3D Viewer</title>
+  <title>Writing NFT AR Viewer</title>
 </head>
 
 <body>
-  <h1>Writing NFT 3D Viewer</h1>
+  <h1>Writing NFT AR Viewer</h1>
   <div>
     <p>Please open in mobile device</p>
-    <model-viewer
-      id="book"
-      alt="NFT Book desu"
-      src="./book.gltf"
-      ar
-      xr-environment
-      shadow-intensity="1"
-      touch-action="pan-y"
-      camera-controls
-      generate-schema
-      camera-orbit="225deg 55deg 100m"
-    >
+    <model-viewer id="book" alt="NFT Book desu" src="./book.gltf" ar xr-environment shadow-intensity="1"
+      touch-action="pan-y" camera-controls generate-schema camera-orbit="225deg 55deg 100m">
     </model-viewer>
     <div class="controls">
       <label for="class_id">Enter Writing NFT Class ID</label>
