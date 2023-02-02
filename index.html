@@ -26,7 +26,7 @@
     </model-viewer>
     <div class="controls">
       <label for="class_id">Enter Writing NFT Class ID</label>
-      <input id="class_id_input" name="class_id" value="likenft1yhsps5l8tmeuy9y7k0rjpx97cl67cjkjnzkycecw5xrvjjp6c5yqz0ttm" placeholder="likenft1...">
+      <input id="class_id_input" name="class_id" placeholder="likenft1...">
     </div>
   </div>
 
@@ -67,8 +67,12 @@
       document.querySelector('#class_id_input').addEventListener('input', (event) => {
         createAndApplyTexture('baseColorTexture', event);
       });
+
+      const params = new URLSearchParams(location.search);
+      const classId = params.get('class_id') || 'likenft1yhsps5l8tmeuy9y7k0rjpx97cl67cjkjnzkycecw5xrvjjp6c5yqz0ttmc';
+      document.querySelector('#class_id_input').value = classId;
       createAndApplyTexture('baseColorTexture', {
-        target: { value: 'likenft1yhsps5l8tmeuy9y7k0rjpx97cl67cjkjnzkycecw5xrvjjp6c5yqz0ttmc' },
+        target: { value: classId },
       });
     });
 
