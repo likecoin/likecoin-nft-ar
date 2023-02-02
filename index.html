@@ -40,9 +40,26 @@
         if (event.target.value == 'None') {
           material.pbrMetallicRoughness[channel].setTexture(null);
         } else if (event.target.value) {
-          const url = `https://api.like.co/likernft/metadata/image/class_${event.target.value}?size=1024`
+          const classId = event.target.value;
+          const res = await fetch(`https://mainnet-node.like.co/cosmos/nft/v1beta1/classes/${classId}`);
+          const data = await res.json();
+          const classData = data.class.data;
+          const isWritingNFT = classData.metadata.nft_meta_collection_id === 'likerland_writing_nft';
+          let url;
+          if (isWritingNFT) {
+            url = `https://api.like.co/likernft/metadata/image/class_${classId}?size=1024`;
+          } else {
+            const image = classData.metadata.image || '';
+            if (image.startsWith('ipfs://')) {
+              url = image.replace('ipfs://', 'https://ipfs.io/ipfs/');
+            } else if (image.startsWith('ar://')) {
+              url = image.replace('ar://', 'https://arweave.net/');
+            } else {
+              url = image;
+            }
+          }
           const texture = await modelViewerTexture.createTexture(url);
-          texture.name = event.target.value.replace(/ /g, '_').toLowerCase();
+          texture.name = classId.replace(/ /g, '_').toLowerCase();
           material.pbrMetallicRoughness[channel].setTexture(texture);
         }
       }
