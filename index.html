@@ -1,0 +1,61 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+</head>
+
+<body>
+  <h1>Writing NFT Viewer</h1>
+  <div>
+    <p>Please open in mobile device</p>
+    <model-viewer
+      id="book"
+      alt="NFT Book desu"
+      src="./book.gltf"
+      ar
+      xr-environment
+      shadow-intensity="1"
+      touch-action="pan-y"
+      camera-controls
+      generate-schema
+      camera-orbit="225deg 55deg 100m"
+    >
+    </model-viewer>
+    <div class="controls">
+      <label for="class_id">Enter Writing NFT Class ID</label>
+      <input id="class_id_input" name="class_id" value="likenft1yhsps5l8tmeuy9y7k0rjpx97cl67cjkjnzkycecw5xrvjjp6c5yqz0ttm" placeholder="likenft1...">
+    </div>
+  </div>
+
+  <script type="module">
+    const modelViewerTexture = document.querySelector('model-viewer#book');
+    modelViewerTexture.addEventListener('load', () => {
+
+      const material = modelViewerTexture.model.materials[0];
+
+      const createAndApplyTexture = async (channel, event) => {
+        if (event.target.value == 'None') {
+          material.pbrMetallicRoughness[channel].setTexture(null);
+        } else if (event.target.value) {
+          const url = `https://api.like.co/likernft/metadata/image/class_${event.target.value}?size=1024`
+          const texture = await modelViewerTexture.createTexture(url);
+          texture.name = event.target.value.replace(/ /g, '_').toLowerCase();
+          material.pbrMetallicRoughness[channel].setTexture(texture);
+        }
+      }
+
+      document.querySelector('#class_id_input').addEventListener('input', (event) => {
+        createAndApplyTexture('baseColorTexture', event);
+      });
+      createAndApplyTexture('baseColorTexture', {
+        target: { value: 'likenft1yhsps5l8tmeuy9y7k0rjpx97cl67cjkjnzkycecw5xrvjjp6c5yqz0ttmc' },
+      });
+    });
+
+  </script>
+</body>
+
+</html>
