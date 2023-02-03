@@ -30,7 +30,7 @@
     const modelViewerTexture = document.querySelector('model-viewer#book');
     modelViewerTexture.addEventListener('load', () => {
 
-      const material = modelViewerTexture.model.materials[0];
+      const material = modelViewerTexture.model.materials[1];
 
       const createAndApplyTexture = async (channel, event) => {
         if (event.target.value == 'None') {
